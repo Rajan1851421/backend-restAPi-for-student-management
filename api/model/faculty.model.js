@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
-const studentSchema = new mongoose.Schema({
+const facultySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
-    email: { type: String, unique: true },
+    subject: String,
+    email: String,
     phone: Number,
     gender: String
 }, { timestamps: true });
 
-module.exports = mongoose.model("Student", studentSchema);
+module.exports = mongoose.model("Faculty", facultySchema);
