@@ -59,7 +59,7 @@ router.post("/", (req, res, next) => {
 
 // delete request
 
-router.get('/:id',(req,res,next)=>{
+router.delete('/:id',(req,res,next)=>{
   Faculty.findOneAndDelete({_id:req.params.id})
   .then((result)=>{
     if (result) {

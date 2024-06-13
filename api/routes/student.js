@@ -11,7 +11,7 @@ router.get("/", (req, res, next) => {
       });
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       res.status(500).json({
         eroor: error,
       });
@@ -30,13 +30,13 @@ router.post("/", (req, res, next) => {
   student
     .save()
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.status(201).json({
         newStudent: result,
       });
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       if (error.code === 11000) {
         res.status(409).json({
           message: "Email already exists",
@@ -52,7 +52,7 @@ router.post("/", (req, res, next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  console.log(req.params.id);
+  // console.log(req.params.id);
   Student.findById(req.params.id)
     .then((result) => {
       res.status(200).json({
@@ -60,7 +60,7 @@ router.get("/:id", (req, res, next) => {
       });
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       res.status(500).json({
         error: error,
       });
@@ -85,12 +85,38 @@ router.delete("/:id", (req, res, next) => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       res.status(500).json({
         error: error,
       });
     });
 });
 
+// upadte request using PUT method
+
+router.put("/:id", (req, res, next) => {
+  // console.log(req.params.id);
+  Student.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $set: {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        gender: req.body.gender,
+      },
+    }
+  ).then((result) => {
+    res.status(200).json({
+      upated_product: result,
+    });
+  })
+  .catch(error=>{
+    // console.log(error);
+    res.status(500).json({
+      error:error
+    })
+  })
+});
 
 module.exports = router;
