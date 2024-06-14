@@ -2,8 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Student = require("../model/student.model.js");
 const mongoose = require("mongoose");
+const checkAuth = require('../middleware/checkAuth.middleware.js')
 
-router.get("/", (req, res, next) => {
+
+
+router.get("/", checkAuth, (req, res, next) => {
   Student.find()
     .then((result) => {
       res.status(200).json({
@@ -11,9 +14,9 @@ router.get("/", (req, res, next) => {
       });
     })
     .catch((error) => {
-      // console.log(error);
+      console.error(error); // Optional: log the error to the console for debugging
       res.status(500).json({
-        eroor: error,
+        error: error,
       });
     });
 });
